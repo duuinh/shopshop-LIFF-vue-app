@@ -138,6 +138,7 @@ export default {
       this.isAdded = true;
       // let url = 'http://192.168.43.201:8000/api/orders/place-order';
       let url = 'https://shopvisor.azurewebsites.net/api/orders/place-order';
+      this.sendMessage('เพิ่ม '+this.productId+' ในตะกร้าสินค้า');
       await axios.get(url, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -152,7 +153,6 @@ export default {
         }
       });
       // await this.sleep(2000);
-      this.sendMessage('เพิ่ม '+this.productId+' ในตะกร้าสินค้า');
       this.closeWindow();
     },
     sleep(ms) {
