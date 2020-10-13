@@ -118,9 +118,12 @@ export default {
   created(){
     this.productId = this.$route.query.product;
     this.customerId = this.$route.query.customer;
-    this.selectedColor = this.$route.query.color;
-    if (!this.colors.includes(this.selectedColor)) {
-      this.colors.push(this.selectedColor);
+    
+    if(this.$route.query.color != '') {
+      this.selectedColor = this.$route.query.color;
+      if (!this.colors.includes(this.selectedColor)) {
+        this.colors.push(this.selectedColor);
+      }
     }
   },
   methods:{
