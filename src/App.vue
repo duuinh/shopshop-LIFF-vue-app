@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 <template>
   <div id="app">
     <router-view/>
@@ -7,9 +8,9 @@
 <script>
 export default {
   async beforeCreate () {
-    await liff.init({ liffId: "1655038375-O2B2JQaL" })
+    await liff.init({ liffId: "1655038375-O2B2JQaL" });
   }
-}
+};
 </script>
 
 <style>

@@ -4,8 +4,7 @@
         <article class="media">
             <div class="media-left">
                 <figure class="image is-64x64">
-                    <!-- <img id="pictureUrl" src="https://bulma.io/images/placeholders/128x128.png"> -->
-                    <img id="pictureUrl">
+                    <img id="pictureUrl" src="https://bulma.io/images/placeholders/128x128.png">
                 </figure>
             </div>
             <div class="media-content">
@@ -79,12 +78,13 @@
 
                     <div class="field is-grouped is-grouped-right">
                         <p class="control">
-                        <a class="button is-danger" @click="addToCart()">
+                        <a class="button is-danger" @click="addToCart()" v-show="!isAdded">
                             Add to Cart
                         </a>
+                        <button class="button is-danger is-loading" v-show="isAdded">Loading</button>
                         </p>
                         <p class="control">
-                        <a class="button is-light" @click="cancel()">
+                        <a class="button is-light" @click="cancel()" :disabled="isAdded">
                             Cancel
                         </a>
                         </p>
@@ -97,58 +97,85 @@
 </template>
 
 <script>
-const axios = require("axios");
+const axios = require('axios');
 export default {
-    name: 'AddToCart',
-    components: {
+  name: 'AddToCart',
+  components: {
+  },
+  data:()=>({
+    colors: ['Red','Green','Blue'],
+    sizes: ['S','M','L','XL'],
+    qty: 1,
+    customerId: 'unknown',
+    productId: 'unknown',
+    selectedSize: 'S',
+    selectedColor: 'Red',
+    isAdded: false,
+  }),
+  async beforeCreate() {
+    this.$liff.ready();
+  },
+  created(){
+    this.productId = this.$route.query.product;
+    this.customerId = this.$route.query.customer;
+  },
+  methods:{
+    minusQty() {
+      if (this.qty > 1) {
+        this.qty--;
+      } 
+      else {
+        this.qty = 1;
+      }
     },
-    data:()=>({
-        colors: ['Red','Green','Blue'],
-        sizes: ['S','M','L','XL'],
-        qty: 1,
-        customerId: 'unknown',
-        productId: 'unknown',
-        selectedSize: 'S',
-        selectedColor: 'Red'
-    }),
-    methods:{
-        minusQty() {
-            if (this.qty > 1) {
-                this.qty--;
-            } 
-            else {
-                this.qty = 1
-            }
+    plusQty() {
+      this.qty++;
+    },
+    closeWindow () {
+      this.$liff.closeWindow();
+    },
+    async addToCart () {
+      this.isAdded = true;
+      // let url = 'http://192.168.43.201:8000/api/orders/place-order';
+      let url = 'https://shopvisor.azurewebsites.net/api/orders/place-order';
+      axios.get(url, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json'
         },
-        plusQty() {
-            this.qty++
-        },
-        closeWindow () {
-            this.$liff.closeWindow()
-        },
-        async addToCart () {
-            let url = `http://localhost:8000/api/orders/place-order?customer_id=${this.customerId}&product_id=${this.productId}&size=${this.selectedSize}&color=${this.selectedColor}&qty=${this.qty}`
-            // window.alert(url)
-            await axios.get(url)
-            this.sendMessage("เพิ่มสินค้าลงตะกร้า")
-            this.closeWindow() 
-        },
-        cancel () {
-            this.sendMessage("เปลี่ยนใจไม่เอาแล้ว")
-            this.closeWindow()
-        },
-        sendMessage (message) {
-        this.$liff.sendMessages([
-            {
-            type: 'text',
-            text: message
-            },
-            ]).catch(function (error) {
-                window.alert('Error sending message: ' + error)
-            })
-        },
-    }
-}
+        params: {
+          customer_id: this.customerId,
+          product_id: this.productId,
+          size: this.selectedSize,
+          color: this.selectedColor,
+          qty: this.qty,
+        }
+      });
+      await this.sleep(1000);
+      this.sendMessage('เพิ่ม '+this.productId+' ในตะกร้าสินค้า');
+      this.closeWindow();
+    },
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    },
+    cancel() {
+      if (this.isAdded) {
+        return;
+      }
+      this.sendMessage('ไม่เอาดีกว่า');
+      this.closeWindow();
+    },
+    sendMessage(message) {
+      this.$liff.sendMessages([{
+        type: 'text',
+        text: message
+      },
+      ]).catch(function (error) {
+        window.alert('Error sending message: ' + error);
+      });
+    },
+  },
+};
 </script>
 
 <style>
