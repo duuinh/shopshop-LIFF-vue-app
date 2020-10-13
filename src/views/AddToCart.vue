@@ -16,7 +16,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <p class="control">
-                                <input class="input" id="product-id" v-model="productId" type="text" disabled>
+                                <input class="input" id="product-id" v-model="productName" type="text" disabled>
                                 </p>
                             </div>
                         </div>
@@ -107,6 +107,7 @@ export default {
     sizes: ['S','M','L','XL'],
     qty: 1,
     customerId: 'unknown',
+    productName: 'unknown',
     productId: 'unknown',
     selectedSize: 'S',
     selectedColor: 'Red',
@@ -116,7 +117,8 @@ export default {
     this.$liff.ready();
   },
   created(){
-    this.productId = this.$route.query.product;
+    this.productId = this.$route.query.product_id;
+    this.productName = this.$route.query.product_name;
     this.customerId = this.$route.query.customer;
     
     if(this.$route.query.color != '') {
@@ -142,7 +144,7 @@ export default {
       this.$liff.closeWindow();
     },
     async addToCart () {
-      this.sendMessage('เพิ่ม '+this.productId+' ในตะกร้าสินค้า');
+      this.sendMessage('เพิ่ม '+this.productName+' ในตะกร้าสินค้า');
       this.isAdded = true;
       // let url = 'http://192.168.43.201:8000/api/orders/place-order';
       let url = 'https://shopvisor.azurewebsites.net/api/orders/place-order';
@@ -154,6 +156,7 @@ export default {
         params: {
           customer_id: this.customerId,
           product_id: this.productId,
+          product_name: this.productName,
           size: this.selectedSize,
           color: this.selectedColor,
           qty: this.qty,
