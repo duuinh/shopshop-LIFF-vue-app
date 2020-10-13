@@ -135,6 +135,7 @@ export default {
       this.$liff.closeWindow();
     },
     async addToCart () {
+      this.sendMessage('เพิ่ม '+this.productId+' ในตะกร้าสินค้า');
       this.isAdded = true;
       // let url = 'http://192.168.43.201:8000/api/orders/place-order';
       let url = 'https://shopvisor.azurewebsites.net/api/orders/place-order';
@@ -152,7 +153,6 @@ export default {
         }
       });
       await this.sleep(1500);
-      await this.sendMessage('เพิ่ม '+this.productId+' ในตะกร้าสินค้า');
       this.closeWindow();
     },
     sleep(ms) {
@@ -165,7 +165,7 @@ export default {
       this.sendMessage('ไม่เอาดีกว่า');
       this.closeWindow();
     },
-    async sendMessage(message) {
+    sendMessage(message) {
       this.$liff.sendMessages([{
         type: 'text',
         text: message
