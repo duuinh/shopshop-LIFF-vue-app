@@ -23,6 +23,6 @@
     "vue-template-compiler": "^2.5.17"
   },
   "engines": {
-    "node": "12.18.0"
+    "yarn": "1.22.10"
   }
 }
