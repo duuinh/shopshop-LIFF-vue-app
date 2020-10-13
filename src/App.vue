@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  beforeCreate () {
-    this.$liff.init(function (data) {})
+  async beforeCreate () {
+    await liff.init({ liffId: "1655038375-O2B2JQaL" })
   }
 }
 </script>
