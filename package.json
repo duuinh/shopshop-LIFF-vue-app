@@ -21,5 +21,8 @@
     "@vue/cli-service": "^3.0.1",
     "@vue/eslint-config-standard": "^3.0.4",
     "vue-template-compiler": "^2.5.17"
+  },
+  "engines": {
+    "node": "12.18.0"
   }
 }
