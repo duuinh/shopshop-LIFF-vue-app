@@ -151,7 +151,7 @@ export default {
           qty: this.qty,
         }
       });
-      await this.sleep(1000);
+      await this.sleep(2000);
       this.sendMessage('เพิ่ม '+this.productId+' ในตะกร้าสินค้า');
       this.closeWindow();
     },
