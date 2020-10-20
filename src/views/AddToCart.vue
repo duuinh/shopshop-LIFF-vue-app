@@ -110,7 +110,6 @@ export default {
     productName: 'unknown',
     productId: 'unknown',
     selectedSize: 'S',
-    selectedColor: 'Red',
     isAdded: false,
     imageUrl: 'https://bulma.io/images/placeholders/128x128.png'
   }),
@@ -144,7 +143,7 @@ export default {
       console.log(response.data);
           this.productName = response.data.name
           if (!this.colors.includes(response.data.color)) {
-            this.colors.push(this.selectedColor);
+            this.colors.push(response.data.color);
           }
           this.imageUrl = response.data.img_url
     },
