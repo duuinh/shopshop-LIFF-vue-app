@@ -8,7 +8,7 @@
 <script>
 export default {
   async beforeCreate () {
-    await liff.init({ liffId: "1655038375-O2B2JQaL" });
+    await liff.init({ liffId: "1655112940-GdqXbnEP" });
   }
 };
 </script>
