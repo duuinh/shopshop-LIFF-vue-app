@@ -4,7 +4,7 @@
         <article class="media">
             <div class="media-left">
                 <figure class="image is-64x64">
-                    <img id="pictureUrl" src="https://bulma.io/images/placeholders/128x128.png">
+                    <img id="pictureUrl" :src="imageUrl" width="128" height="128">
                 </figure>
             </div>
             <div class="media-content">
@@ -112,21 +112,15 @@ export default {
     selectedSize: 'S',
     selectedColor: 'Red',
     isAdded: false,
+    imageUrl: 'https://bulma.io/images/placeholders/128x128.png'
   }),
   async beforeCreate() {
     this.$liff.ready();
   },
-  created(){
+  async created(){
     this.productId = this.$route.query.product_id;
-    this.productName = this.$route.query.product_name;
     this.customerId = this.$route.query.customer;
-    
-    if(this.$route.query.color != '') {
-      this.selectedColor = this.$route.query.color;
-      if (!this.colors.includes(this.selectedColor)) {
-        this.colors.push(this.selectedColor);
-      }
-    }
+    await this.getItem()
   },
   methods:{
     minusQty() {
@@ -142,6 +136,17 @@ export default {
     },
     closeWindow () {
       this.$liff.closeWindow();
+    },
+    async getItem () {
+      // let url = `http://192.168.43.201:8000/api/items/${this.productId}`;
+      let url = `https://shopvisor.azurewebsites.net/api/items/${this.productId}`;
+      let response = await axios.get(url);
+      console.log(response.data);
+          this.productName = response.data.name
+          if (!this.colors.includes(response.data.color)) {
+            this.colors.push(this.selectedColor);
+          }
+          this.imageUrl = response.data.img_url
     },
     async addToCart () {
       this.sendMessage('เพิ่ม '+this.productName+' ในตะกร้าสินค้า');
