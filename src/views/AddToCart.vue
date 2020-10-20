@@ -110,7 +110,7 @@ export default {
     productName: 'unknown',
     productId: 'unknown',
     selectedSize: 'S',
-    selectedColor: 'Red'
+    selectedColor: 'Red',
     isAdded: false,
     imageUrl: 'https://bulma.io/images/placeholders/128x128.png'
   }),
