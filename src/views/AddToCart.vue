@@ -110,6 +110,7 @@ export default {
     productName: 'unknown',
     productId: 'unknown',
     selectedSize: 'S',
+    selectedColor: 'Red'
     isAdded: false,
     imageUrl: 'https://bulma.io/images/placeholders/128x128.png'
   }),
@@ -141,11 +142,12 @@ export default {
       let url = `https://shopvisor.azurewebsites.net/api/items/${this.productId}`;
       let response = await axios.get(url);
       console.log(response.data);
-          this.productName = response.data.name
+          this.productName = response.data.name;
           if (!this.colors.includes(response.data.color)) {
             this.colors.push(response.data.color);
           }
-          this.imageUrl = response.data.img_url
+          this.selectedColor = response.data.color;
+          this.imageUrl = response.data.img_url;
     },
     async addToCart () {
       this.sendMessage('เพิ่ม '+this.productName+' ในตะกร้าสินค้า');
