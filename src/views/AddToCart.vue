@@ -169,7 +169,7 @@ export default {
       this.isAdded = true;
       // let url = 'http://192.168.43.201:8000/api/orders/place-order';
       let url = 'https://shopvisor.azurewebsites.net/api/orders/place-order';
-      axios.post(url, null,{
+      axios.post(url, null, {
         params: {
           customer_id: this.customerId,
           product_id: this.productId,

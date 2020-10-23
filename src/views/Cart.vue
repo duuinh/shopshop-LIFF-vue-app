@@ -126,6 +126,7 @@ export default {
           if(this.isCheckOut) {
               return;
           }
+          await this.sleep(500);
           this.sendMessage('หมวดหมู่สินค้า');
           this.closeWindow();
       },
