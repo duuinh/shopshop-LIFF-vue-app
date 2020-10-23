@@ -71,8 +71,8 @@ export default {
   },
   methods:{
       async getCart(){
-        let url = 'http://localhost:8000/api/orders/cart'
-        // let url = 'https://shopvisor.azurewebsites.net/api/orders/cart'
+        // let url = 'http://localhost:8000/api/orders/cart'
+        let url = 'https://shopvisor.azurewebsites.net/api/orders/cart'
         let resp = await axios.get(url, {
             headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
