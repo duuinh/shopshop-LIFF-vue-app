@@ -1,6 +1,6 @@
 <template>
     <div style="padding: 1em;">
-        <table class="table is-hoverable">
+        <table class="table is-hoverable is-fullwidth">
         <thead>
             <tr>
             <th></th>
