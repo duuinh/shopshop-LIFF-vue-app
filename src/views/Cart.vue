@@ -55,7 +55,7 @@ export default {
   data:()=>({
     imageUrl: 'https://bulma.io/images/placeholders/128x128.png',
     items: [],
-    isCheckOut: false;
+    isCheckOut: false,
   }),
   async beforeCreate() {
     this.$liff.ready();
