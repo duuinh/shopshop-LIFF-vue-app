@@ -165,7 +165,6 @@ export default {
       if (this.productName == 'unknown') {
         return;
       }
-      console.log(this.productName)
       this.sendMessage('เพิ่ม '+this.productName+' ในตะกร้าสินค้า');
       this.isAdded = true;
       // let url = 'http://192.168.43.201:8000/api/orders/place-order';
