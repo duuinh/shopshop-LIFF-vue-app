@@ -91,7 +91,7 @@ export default {
         });
         this.items = resp.data;
       },
-      onRemove(key) {
+      async onRemove(key) {
           await this.cancelOrder(key);
           Vue.delete(this.items, key)
       },
@@ -128,7 +128,7 @@ export default {
           }
           this.sendMessage('หมวดหมู่สินค้า');
           this.closeWindow();
-        }),
+        })
       }
   },
 };
