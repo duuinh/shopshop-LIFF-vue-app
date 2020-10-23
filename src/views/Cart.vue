@@ -1,34 +1,53 @@
 <template>
-  <div>
     <div style="padding: 1em;">
-        <table class="table">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Product</th>
-      <th>Size</th>
-      <th>Color</th>
-      <th>Price</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>2x</td>
-      <td><span class="tag is-danger is-light">{{productName}}</span></td>
-      <td>S</td>
-      <td>Pink</td>
-      <td><strong>120</strong></td>
-      <td><a class="tag is-delete"></a></td>
-    </tr>
-  </tbody>
-</table>
+        <table class="table is-hoverable">
+        <thead>
+            <tr>
+            <th></th>
+            <th>Product</th>
+            <th>Price</th>
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(value, key) in items">
+            <td>{{value.qty}}x</td>
+            <td>
+                <span class="tag is-danger is-light">{{value.product_name}}</span>
+                <span class="tag is-rounded">{{value.color}}</span>
+                <span class="tag is-rounded">{{value.size}}</span>
+            </td>
+            <td><strong>{{value.price}}</strong></td>
+            <td><a class="tag is-delete" @click="remove(key)"></a></td>
+            </tr>
+            <tr>
+            <p v-if="itemsLength==0">Your cart is empty</p>
+            </tr>
+        </tbody>
+        </table>
+        <p  class="field is-grouped is-grouped-right">
+           <strong>Total: ฿{{totalPrice}}</strong>
+        </p>
+        <div class="field is-grouped is-grouped-right">
+                        <p class="control">
+                        <a class="button is-danger" @click="checkOut()" v-show="!isCheckOut" :disabled="itemsLength == 0">
+                            Checkout
+                        </a>
+                        <button class="button is-danger is-loading" v-show="isCheckOut">Loading</button>
+                        </p>
+                        <p class="control">
+                        <a class="button is-light" @click="continueShopping()" :disabled="isCheckOut">
+                            Continue Shopping
+                        </a>
+                        </p>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
 const axios = require('axios');
+import Vue from 'vue'
+
 export default {
   name: 'Cart',
   components: {
@@ -36,17 +55,24 @@ export default {
   data:()=>({
     imageUrl: 'https://bulma.io/images/placeholders/128x128.png',
     items: [],
+    totalPrice: 0,
   }),
   async beforeCreate() {
     this.$liff.ready();
   },
   async created(){
     this.customerId = this.$route.query.customer;
-    await this.getCart()
+    await this.getCart();
+  },
+  computed:{
+      itemsLength(){
+          return Object.keys(this.items).length;
+      },
   },
   methods:{
       async getCart(){
-        let url = 'https://shopvisor.azurewebsites.net/api/orders/cart'
+        let url = 'http://localhost:8000/api/orders/cart'
+        // let url = 'https://shopvisor.azurewebsites.net/api/orders/cart'
         let resp = await axios.get(url, {
             headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -57,9 +83,14 @@ export default {
             }
         });
         this.items = resp.data;
-        console.log(this.items);
-    
-      }
+      },
+      remove(key) {
+          this.cancelOrder(key);
+          Vue.delete(this.items, key)
+      },
+      cancelOrder(key) {
+
+      },
   },
 };
 </script>
