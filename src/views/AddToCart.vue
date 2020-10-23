@@ -178,6 +178,7 @@ export default {
           size: this.selectedSize,
           color: this.selectedColor,
           qty: this.qty,
+          price: this.totalPrice,
           source: this.source
         }
       });
