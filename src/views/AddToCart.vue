@@ -112,7 +112,7 @@ export default {
     selectedSize: 'S',
     selectedColor: 'Red',
     isAdded: false,
-    imageUrl: 'https://bulma.io/images/placeholders/128x128.png'
+    imageUrl: 'https://bulma.io/images/placeholders/128x128.png',
     source: null
   }),
   async beforeCreate() {
