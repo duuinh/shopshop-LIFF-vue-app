@@ -92,15 +92,15 @@ export default {
         this.items = resp.data;
       },
       async onRemove(key) {
-          await this.cancelOrder(key);
+          await this.changeStatus("canceled", key);
           Vue.delete(this.items, key)
       },
-      async cancelOrder(key) {
-          let url = 'https://shopvisor.azurewebsites.net/api/orders/status';
-          await axios.post(url, {
+      async changeStatus(status, key){
+        let url = 'https://shopvisor.azurewebsites.net/api/orders/status';
+        await axios.post(url, null, {
             params: {
                 row: key,
-                source: "canceled"
+                status: status
             }
         });
       },
@@ -128,7 +128,7 @@ export default {
           }
           this.sendMessage('หมวดหมู่สินค้า');
           this.closeWindow();
-      }
+      },
   },
 };
 </script>
