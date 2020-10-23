@@ -16,7 +16,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <p class="control">
-                                <input class="input" id="product-id" v-model="productName" type="text" disabled>
+                                <input class="input is-static" id="product-id" v-model="productName" type="text">
                                 </p>
                             </div>
                         </div>
@@ -113,6 +113,7 @@ export default {
     selectedColor: 'Red',
     isAdded: false,
     imageUrl: 'https://bulma.io/images/placeholders/128x128.png'
+    source: null
   }),
   async beforeCreate() {
     this.$liff.ready();
@@ -120,6 +121,7 @@ export default {
   async created(){
     this.productId = this.$route.query.product_id;
     this.customerId = this.$route.query.customer;
+    this.source = this.$route.query.source;
     await this.getItem()
   },
   methods:{
@@ -166,6 +168,7 @@ export default {
           size: this.selectedSize,
           color: this.selectedColor,
           qty: this.qty,
+          source: this.source
         }
       });
       await this.sleep(1500);
