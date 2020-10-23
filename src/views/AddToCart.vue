@@ -5,6 +5,9 @@
             <div class="media-left">
                 <figure class="image is-64x64">
                     <img id="pictureUrl" :src="imageUrl" width="128" height="128">
+                    <strong>
+                    <center>฿{{this.totalPrice}}</center>
+                    </strong>
                 </figure>
             </div>
             <div class="media-content">
@@ -34,7 +37,7 @@
                                   <button class="button" @click="minusQty()">-</button>
                                 </p>
                                 <p class="control">
-                                    <input class="input" id="qty" v-model="qty" type="number">
+                                  <input class="input has-text-centered" id="qty" v-model="qty" type="number" readonly>
                                 </p>
                                 <p class="control">
                                     <button class="button" @click="plusQty()">+</button>
@@ -106,6 +109,8 @@ export default {
     colors: ['Red','Green','Blue'],
     sizes: ['S','M','L','XL'],
     qty: 1,
+    price: 0,
+    totalPrice: 0,
     customerId: 'unknown',
     productName: 'unknown',
     productId: 'unknown',
@@ -113,7 +118,7 @@ export default {
     selectedColor: 'Red',
     isAdded: false,
     imageUrl: 'https://bulma.io/images/placeholders/128x128.png',
-    source: null
+    source: null,
   }),
   async beforeCreate() {
     this.$liff.ready();
@@ -128,13 +133,16 @@ export default {
     minusQty() {
       if (this.qty > 1) {
         this.qty--;
+        this.totalPrice = this.qty * this.price;
       } 
       else {
         this.qty = 1;
+        this.totalPrice = this.qty * this.price;
       }
     },
     plusQty() {
       this.qty++;
+      this.totalPrice = this.qty * this.price;
     },
     closeWindow () {
       this.$liff.closeWindow();
@@ -150,6 +158,8 @@ export default {
           }
           this.selectedColor = response.data.color;
           this.imageUrl = response.data.img_url;
+          this.price = response.data.price;
+          this.totalPrice = response.data.price;
     },
     async addToCart () {
       this.sendMessage('เพิ่ม '+this.productName+' ในตะกร้าสินค้า');

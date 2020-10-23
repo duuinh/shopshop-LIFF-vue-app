@@ -4,19 +4,22 @@
         <table class="table">
   <thead>
     <tr>
-      <th>product_name</th>
-      <th>size</th>
-      <th>color</th>
-      <th>qty</th>
+      <th></th>
+      <th>Product</th>
+      <th>Size</th>
+      <th>Color</th>
+      <th>Price</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th><a class="tag is-delete"></a>
-1</th>
-      <td>38</td>
-      <td>23</td>
-      <td>12</td>
+      <td>2x</td>
+      <td><span class="tag is-danger is-light">{{productName}}</span></td>
+      <td>S</td>
+      <td>Pink</td>
+      <td><strong>120</strong></td>
+      <td><a class="tag is-delete"></a></td>
     </tr>
   </tbody>
 </table>
@@ -37,12 +40,22 @@ export default {
     this.$liff.ready();
   },
   async created(){
-    this.productId = this.$route.query.product_id;
     this.customerId = this.$route.query.customer;
     await this.getItem()
   },
   methods:{
-
+      async getCart(){
+        url = 'https://shopvisor.azurewebsites.net/api/orders/cart'
+        axios.get(url, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json'
+        },
+        params: {
+          customer_id: this.customerId,
+        }
+      });
+      }
   },
 };
 </script>
