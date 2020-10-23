@@ -81,7 +81,7 @@
 
                     <div class="field is-grouped is-grouped-right">
                         <p class="control">
-                        <a class="button is-danger" @click="addToCart()" v-show="!isAdded">
+                        <a class="button is-danger" @click="addToCart()" v-show="!isAdded" :disabled="!isLoaded">
                             Add to Cart
                         </a>
                         <button class="button is-danger is-loading" v-show="isAdded">Loading</button>
@@ -119,6 +119,7 @@ export default {
     isAdded: false,
     imageUrl: 'https://bulma.io/images/placeholders/128x128.png',
     source: null,
+    isLoaded: false
   }),
   async beforeCreate() {
     this.$liff.ready();
@@ -160,6 +161,7 @@ export default {
           this.imageUrl = response.data.img_url;
           this.price = response.data.price;
           this.totalPrice = response.data.price;
+          this.isLoaded = true;
     },
     async addToCart () {
       this.sendMessage('เพิ่ม '+this.productName+' ในตะกร้าสินค้า');

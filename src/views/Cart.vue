@@ -34,27 +34,31 @@ export default {
   components: {
   },
   data:()=>({
-    imageUrl: 'https://bulma.io/images/placeholders/128x128.png'
+    imageUrl: 'https://bulma.io/images/placeholders/128x128.png',
+    items: [],
   }),
   async beforeCreate() {
     this.$liff.ready();
   },
   async created(){
     this.customerId = this.$route.query.customer;
-    await this.getItem()
+    await this.getCart()
   },
   methods:{
       async getCart(){
-        url = 'https://shopvisor.azurewebsites.net/api/orders/cart'
-        axios.get(url, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Accept': 'application/json'
-        },
-        params: {
-          customer_id: this.customerId,
-        }
-      });
+        let url = 'https://shopvisor.azurewebsites.net/api/orders/cart'
+        let resp = await axios.get(url, {
+            headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+            },
+            params: {
+            customer_id: this.customerId,
+            }
+        });
+        this.items = resp.data;
+        console.log(this.items);
+    
       }
   },
 };
