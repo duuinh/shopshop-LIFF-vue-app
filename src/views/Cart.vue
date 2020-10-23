@@ -89,6 +89,7 @@ export default {
             customer_id: this.customerId,
             }
         });
+        console.log(resp.data);
         this.items = resp.data;
       },
       async onRemove(key) {
@@ -96,13 +97,15 @@ export default {
           Vue.delete(this.items, key)
       },
       async changeStatus(status, key){
+        let row = key + 2;
         let url = 'https://shopvisor.azurewebsites.net/api/orders/status';
-        await axios.post(url, null, {
+        let resp = await axios.post(url, null, {
             params: {
-                row: key,
+                row: row,
                 status: status
             }
         });
+        console.log(resp);
       },
       sendMessage(message) {
         this.$liff.sendMessages([{
