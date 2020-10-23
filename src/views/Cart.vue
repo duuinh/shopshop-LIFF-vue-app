@@ -97,7 +97,7 @@ export default {
           Vue.delete(this.items, key)
       },
       async changeStatus(status, key){
-        let row = key + 2;
+        let row = parseInt(key) + 2;
         let url = 'https://shopvisor.azurewebsites.net/api/orders/status';
         let resp = await axios.post(url, null, {
             params: {
