@@ -122,7 +122,7 @@ export default {
           }
           this.isCheckOut = true;
       },
-      continueShopping(){
+      async continueShopping(){
           if(this.isCheckOut) {
               return;
           }
