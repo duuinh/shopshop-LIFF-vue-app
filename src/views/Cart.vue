@@ -128,7 +128,6 @@ export default {
           }
           this.sendMessage('หมวดหมู่สินค้า');
           this.closeWindow();
-        })
       }
   },
 };
