@@ -18,7 +18,7 @@
                 <span class="tag is-rounded">{{value.size}}</span>
             </td>
             <td><strong>{{value.price}}</strong></td>
-            <td><a class="tag is-delete" @click="remove(key)"></a></td>
+            <td><a class="tag is-delete" @click="onRemove(key)"></a></td>
             </tr>
             <tr>
             <p v-if="itemsLength==0">Your cart is empty</p>
@@ -55,7 +55,7 @@ export default {
   data:()=>({
     imageUrl: 'https://bulma.io/images/placeholders/128x128.png',
     items: [],
-    totalPrice: 0,
+    isCheckOut: false;
   }),
   async beforeCreate() {
     this.$liff.ready();
@@ -67,6 +67,13 @@ export default {
   computed:{
       itemsLength(){
           return Object.keys(this.items).length;
+      },
+      totalPrice(){
+          let price = 0;
+          Object.entries(this.items).forEach(function([key, value]) {
+            price +=value.price;
+          });
+          return price;
       },
   },
   methods:{
@@ -84,13 +91,45 @@ export default {
         });
         this.items = resp.data;
       },
-      remove(key) {
-          this.cancelOrder(key);
+      onRemove(key) {
+          await this.cancelOrder(key);
           Vue.delete(this.items, key)
       },
-      cancelOrder(key) {
-
+      async cancelOrder(key) {
+          let url = 'https://shopvisor.azurewebsites.net/api/orders/status';
+          await axios.post(url, {
+            params: {
+                row: key,
+                source: "canceled"
+            }
+        });
       },
+      sendMessage(message) {
+        this.$liff.sendMessages([{
+        type: 'text',
+        text: message
+       },
+       ]).catch(function (error) {
+         window.alert('Error sending message: ' + error);
+       });
+      },
+      closeWindow () {
+        this.$liff.closeWindow();
+      },
+      checkOut() {
+          if(this.itemsLength == 0) {
+              return;
+          }
+          this.isCheckOut = true;
+      },
+      continueShopping(){
+          if(this.isCheckOut) {
+              return;
+          }
+          this.sendMessage('หมวดหมู่สินค้า');
+          this.closeWindow();
+        }),
+      }
   },
 };
 </script>
