@@ -16,7 +16,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <p class="control">
-                                <span class="tag is-danger is-light is-large" id="product-id">{{productName}}</span>
+                                <span class="tag is-danger is-light is-medium" id="product-id">{{productName}}</span>
                                 </p>
                             </div>
                         </div>
