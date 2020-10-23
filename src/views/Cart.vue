@@ -12,7 +12,8 @@
   </thead>
   <tbody>
     <tr>
-      <th>1</th>
+      <th><a class="tag is-delete"></a>
+1</th>
       <td>38</td>
       <td>23</td>
       <td>12</td>

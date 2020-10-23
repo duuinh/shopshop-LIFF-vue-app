@@ -16,7 +16,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <p class="control">
-                                <input class="input is-static" id="product-id" v-model="productName" type="text">
+                                <span class="tag is-danger is-light" id="product-id">{{productName}}</span>
                                 </p>
                             </div>
                         </div>
