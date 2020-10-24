@@ -136,6 +136,9 @@ export default {
           await this.sleep(10);
           this.closeWindow();
       },
+      sleep(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms));
+      },
   },
 };
 </script>
