@@ -124,6 +124,12 @@ export default {
               return;
           }
           this.isCheckOut = true;
+
+          Object.entries(this.items).forEach(function([key, value]) {
+            price +=value.price;
+            await this.changeStatus("confirm", key)
+          });
+          
           this.sendMessage('ยืนยันการสั่งซื้อ');
           await this.sleep(100);
           this.closeWindow();
@@ -133,7 +139,7 @@ export default {
               return;
           }
           this.sendMessage('หมวดหมู่สินค้า');
-          await this.sleep(10);
+          await this.sleep(100);
           this.closeWindow();
       },
       sleep(ms) {
