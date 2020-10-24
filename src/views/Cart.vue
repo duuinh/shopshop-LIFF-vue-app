@@ -130,7 +130,6 @@ export default {
               return;
           }
           this.sendMessage('หมวดหมู่สินค้า');
-          await this.sleep(500);
           this.closeWindow();
       },
   },
