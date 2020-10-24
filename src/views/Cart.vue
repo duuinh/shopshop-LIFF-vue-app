@@ -124,6 +124,8 @@ export default {
               return;
           }
           this.isCheckOut = true;
+          this.sendMessage('ยืนยันการสั่งซื้อ');
+          this.closeWindow();
       },
       async continueShopping(){
           if(this.isCheckOut) {
