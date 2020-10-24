@@ -125,7 +125,7 @@ export default {
           }
           this.isCheckOut = true;
           this.sendMessage('ยืนยันการสั่งซื้อ');
-          await this.sleep(100);
+          await this.sleep(10);
           this.closeWindow();
       },
       async continueShopping(){
@@ -133,6 +133,7 @@ export default {
               return;
           }
           this.sendMessage('หมวดหมู่สินค้า');
+          await this.sleep(10);
           this.closeWindow();
       },
   },
