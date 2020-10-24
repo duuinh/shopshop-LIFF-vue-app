@@ -36,7 +36,7 @@
                         <button class="button is-danger is-loading" v-show="isCheckOut">Loading</button>
                         </p>
                         <p class="control">
-                        <a class="button is-light" @click="continueShopping()" :disabled="isCheckOut">
+                        <a class="button is-light" @click="continueShopping()|async" :disabled="isCheckOut">
                             Continue Shopping
                         </a>
                         </p>
@@ -129,8 +129,8 @@ export default {
           if(this.isCheckOut) {
               return;
           }
-          await this.sleep(500);
           this.sendMessage('หมวดหมู่สินค้า');
+          await this.sleep(500);
           this.closeWindow();
       },
   },
