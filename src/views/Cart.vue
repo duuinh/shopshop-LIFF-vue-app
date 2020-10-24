@@ -124,14 +124,14 @@ export default {
               return;
           }
           this.isCheckOut = true;
-          this.sendMessage('ยืนยันการสั่งซื้อ');
+          await this.sendMessage('ยืนยันการสั่งซื้อ');
           this.closeWindow();
       },
       async continueShopping(){
           if(this.isCheckOut) {
               return;
           }
-          this.sendMessage('หมวดหมู่สินค้า');
+          await this.sendMessage('หมวดหมู่สินค้า');
           this.closeWindow();
       },
   },
