@@ -30,7 +30,7 @@
         </p>
         <div class="field is-grouped is-grouped-right">
                         <p class="control">
-                        <a class="button is-danger" @click="checkOut()" v-show="!isCheckOut" :disabled="itemsLength == 0">
+                        <a class="button is-danger" @click="checkOut()|async" v-show="!isCheckOut" :disabled="itemsLength == 0">
                             Checkout
                         </a>
                         <button class="button is-danger is-loading" v-show="isCheckOut">Loading</button>
@@ -119,7 +119,7 @@ export default {
       closeWindow () {
         this.$liff.closeWindow();
       },
-      checkOut() {
+      async checkOut() {
           if(this.itemsLength == 0) {
               return;
           }
