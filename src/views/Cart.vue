@@ -125,7 +125,7 @@ export default {
           }
           this.isCheckOut = true;
           this.sendMessage('ยืนยันการสั่งซื้อ');
-          await this.sleep(10);
+          await this.sleep(100);
           this.closeWindow();
       },
       async continueShopping(){
