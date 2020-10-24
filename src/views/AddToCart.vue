@@ -119,6 +119,7 @@ export default {
     isAdded: false,
     imageUrl: 'https://bulma.io/images/placeholders/128x128.png',
     source: null,
+    matrix_id: null,
   }),
   async beforeCreate() {
     this.$liff.ready();
@@ -127,6 +128,7 @@ export default {
     this.productId = this.$route.query.product_id;
     this.customerId = this.$route.query.customer;
     this.source = this.$route.query.source;
+    this.matrix_id = this.$route.query.matrix_id;
     await this.getItem()
   },
   methods:{
@@ -178,7 +180,8 @@ export default {
           color: this.selectedColor,
           qty: this.qty,
           price: this.totalPrice,
-          source: this.source
+          source: this.source,
+          matrix_id: this.matrix_id
         }
       });
       await this.sleep(1500);
