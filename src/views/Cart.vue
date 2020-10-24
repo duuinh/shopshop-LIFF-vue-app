@@ -125,11 +125,10 @@ export default {
           }
           this.isCheckOut = true;
 
-          Object.entries(this.items).forEach(function([key, value]) {
-            price +=value.price;
-            await this.changeStatus("confirm", key)
-          });
-          
+          for (const key in this.items) {
+              await this.changeStatus("confirmed", key);
+          }
+
           this.sendMessage('ยืนยันการสั่งซื้อ');
           await this.sleep(100);
           this.closeWindow();
@@ -139,7 +138,6 @@ export default {
               return;
           }
           this.sendMessage('หมวดหมู่สินค้า');
-          await this.sleep(100);
           this.closeWindow();
       },
       sleep(ms) {
