@@ -30,13 +30,13 @@
         </p>
         <div class="field is-grouped is-grouped-right">
                         <p class="control">
-                        <a class="button is-danger" @click="checkOut()|async" v-show="!isCheckOut" :disabled="itemsLength == 0">
+                        <a class="button is-danger" @click="checkOut()" v-show="!isCheckOut" :disabled="itemsLength == 0">
                             ยืนยันการสั่งซื้อ
                         </a>
                         <button class="button is-danger is-loading" v-show="isCheckOut">Loading</button>
                         </p>
                         <p class="control">
-                        <a class="button is-light" @click="continueShopping()|async" :disabled="isCheckOut">
+                        <a class="button is-light" @click="continueShopping()" :disabled="isCheckOut">
                             เลือกสินค้าเพิ่มเติม
                         </a>
                         </p>
