@@ -151,7 +151,7 @@ export default {
     },
     async getItem () {
       // let url = `http://192.168.43.201:8000/api/items/${this.productId}`;
-      let url = `https://shopvisor.azurewebsites.net/api/items/${this.productId}`;
+      let url = `https://shopshop-6jtq3dddmq-as.a.run.app/api/items/${this.productId}`;
       let response = await axios.get(url);
       console.log(response.data);
           this.productName = response.data.name;
@@ -170,7 +170,7 @@ export default {
       this.sendMessage('เพิ่ม '+this.productName+' ในตะกร้าสินค้า');
       this.isAdded = true;
       // let url = 'http://192.168.43.201:8000/api/orders/place-order';
-      let url = 'https://shopvisor.azurewebsites.net/api/orders/place-order';
+      let url = 'https://shopshop-6jtq3dddmq-as.a.run.app/api/orders/place-order';
       axios.post(url, null, {
         params: {
           customer_id: this.customerId,
